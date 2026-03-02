@@ -69,6 +69,7 @@ public class Team extends UriEntity<String> {
 	private LocalDate inscriptionDate;
 
 	@OneToMany(mappedBy = "team", cascade = CascadeType.ALL, orphanRemoval = true)
+	@Size(max = 10, message = "A team cannot have more than 10 members")
 	@ToString.Exclude
 	private List<TeamMember> members = new ArrayList<>();
 

@@ -28,13 +28,13 @@ public class CompetitionTable extends UriEntity<String> {
 
 	@OneToMany(mappedBy = "competitionTable", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonManagedReference("table-matches")
-	@Setter(lombok.AccessLevel.NONE) // Evitamos el setter automático de Lombok
+	@Setter(lombok.AccessLevel.NONE)
 	private List<Match> matches = new ArrayList<>();
 
 	@OneToMany(mappedBy = "supervisesTable")
 	@Size(max = 3, message = "A table can have a maximum of 3 referees")
 	@JsonManagedReference("table-referees")
-	@Setter(lombok.AccessLevel.NONE) // Evitamos el setter automático de Lombok
+	@Setter(lombok.AccessLevel.NONE)
 	private List<Referee> referees = new ArrayList<>();
 
 	public void setMatches(List<Match> matches) {

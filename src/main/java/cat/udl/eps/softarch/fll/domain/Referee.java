@@ -20,7 +20,6 @@ import lombok.Setter;
 @EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
 public class Referee extends Volunteer {
 
-	@EqualsAndHashCode.Include
 	private boolean expert;
 
 	@ManyToOne(fetch = FetchType.LAZY)

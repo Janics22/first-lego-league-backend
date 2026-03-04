@@ -21,6 +21,7 @@ Feature: Team Edition Registration
     When I register team "LegoStars" to edition with id 9999
     Then The response code is 404
     And The response has error "EDITION_NOT_FOUND"
+    And The response has a non-empty message
 
   @Validation
   Scenario: Cannot register a non-existent team to an edition
@@ -28,6 +29,7 @@ Feature: Team Edition Registration
     When I register team "NonExistentTeam" to the current edition
     Then The response code is 404
     And The response has error "TEAM_NOT_FOUND"
+    And The response has a non-empty message
 
   @BusinessRules
   Scenario: Cannot register a team already registered in the edition
@@ -37,6 +39,7 @@ Feature: Team Edition Registration
     When I register team "LegoStars" to the current edition
     Then The response code is 409
     And The response has error "TEAM_ALREADY_REGISTERED"
+    And The response has a non-empty message
 
   @BusinessRules
   Scenario: Cannot exceed maximum of 18 teams per edition
@@ -46,6 +49,7 @@ Feature: Team Edition Registration
     When I register team "Team19" to the current edition
     Then The response code is 409
     And The response has error "MAX_TEAMS_REACHED"
+    And The response has a non-empty message
 
   @Concurrency
   Scenario: Concurrent registrations beyond capacity return 409 instead of 500

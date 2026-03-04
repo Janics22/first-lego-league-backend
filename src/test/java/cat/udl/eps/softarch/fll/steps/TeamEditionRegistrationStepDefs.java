@@ -69,12 +69,14 @@ public class TeamEditionRegistrationStepDefs {
 	public void editionHasTeamsRegistered(int count) {
 		Edition edition = editionRepository.findById(currentEditionId()).orElseThrow();
 		IntStream.range(0, count).forEach(i -> {
-			String teamName = "FillerTeam" + i;
-			Team team = new Team(teamName);
-			team.setCity("Igualada");
-			team.setFoundationYear(2000);
-			team.setCategory("Challenge");
-			teamRepository.save(team);
+			String teamName = "FillerTeam_" + edition.getId() + "_" + i;
+			Team team = teamRepository.findById(teamName).orElseGet(() -> {
+				Team created = new Team(teamName);
+				created.setCity("Igualada");
+				created.setFoundationYear(2000);
+				created.setCategory("Challenge");
+				return teamRepository.save(created);
+			});
 			edition.getTeams().add(team);
 		});
 		editionRepository.save(edition);
@@ -130,6 +132,11 @@ public class TeamEditionRegistrationStepDefs {
 	@And("The response has error {string}")
 	public void theResponseHasError(String error) throws Exception {
 		stepDefs.result.andExpect(jsonPath("$.error", is(error)));
+	}
+
+	@And("The response has a non-empty message")
+	public void theResponseHasNonEmptyMessage() throws Exception {
+		stepDefs.result.andExpect(jsonPath("$.message").isNotEmpty());
 	}
 
 	private Long currentEditionId() {

@@ -24,6 +24,12 @@ public class LeaderboardService {
 	}
 
 	public LeaderboardPageResponse getEditionLeaderboard(Long editionId, int page, int size) {
+		if (page < 0 || size < 1 || size > 100) {
+			throw new ResponseStatusException(
+					HttpStatus.BAD_REQUEST,
+					"Invalid pagination: page must be >= 0 and size must be between 1 and 100");
+		}
+
 		if (!editionRepository.existsById(editionId)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Edition not found: " + editionId);
 		}

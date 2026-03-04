@@ -1,5 +1,8 @@
 package cat.udl.eps.softarch.fll.controller;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +17,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RestController
 @RequestMapping("/leaderboards")
 @Tag(name = "Leaderboards", description = "Endpoints for retrieving competition leaderboards")
+@Validated
 public class LeaderboardController {
 
 	private final LeaderboardService leaderboardService;
@@ -26,8 +30,8 @@ public class LeaderboardController {
 	@Operation(summary = "Get leaderboard for a specific edition")
 	public LeaderboardPageResponse getEditionLeaderboard(
 			@Parameter(description = "Edition identifier") @PathVariable Long editionId,
-			@Parameter(description = "Page index (0-based)") @RequestParam(defaultValue = "0") int page,
-			@Parameter(description = "Page size") @RequestParam(defaultValue = "10") int size) {
+			@Parameter(description = "Page index (0-based)") @RequestParam(defaultValue = "0") @Min(0) int page,
+			@Parameter(description = "Page size") @RequestParam(defaultValue = "10") @Min(1) @Max(100) int size) {
 		return leaderboardService.getEditionLeaderboard(editionId, page, size);
 	}
 }

@@ -12,8 +12,6 @@ import cat.udl.eps.softarch.fll.domain.Referee;
 @RepositoryRestResource
 public interface RefereeRepository extends CrudRepository<Referee, Long>, PagingAndSortingRepository<Referee, Long> {
 
-	List<Referee> findAll();
-
 	@RestResource(exported = false)
 	List<Referee> findByEditionId(Long editionId);
 

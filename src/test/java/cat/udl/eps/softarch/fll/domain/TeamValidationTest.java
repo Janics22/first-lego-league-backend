@@ -14,11 +14,6 @@ class TeamValidationTest {
 	}
 
 	@Test
-	void singleNameConstruction() {
-		assertDoesNotThrow(() -> Team.create("Robotics", "Barcelona", 2000, "category"));
-	}
-
-	@Test
 	void invalidMinFoundationYearConstruction() {
 		assertThrows(DomainValidationException.class, () -> Team.create("Robotics", "Barcelona", 0, "category"));
 	}

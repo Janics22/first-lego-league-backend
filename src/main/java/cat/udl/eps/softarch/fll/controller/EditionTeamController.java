@@ -3,6 +3,7 @@ package cat.udl.eps.softarch.fll.controller;
 import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +18,7 @@ public class EditionTeamController {
 		this.registrationService = registrationService;
 	}
 
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/editions/{editionId}/teams/{teamId}")
 	public ResponseEntity<Map<String, String>> registerTeam(
 			@PathVariable Long editionId, @PathVariable String teamId) {

@@ -119,9 +119,9 @@ public class TeamEditionRegistrationStepDefs {
 	@Then("One registration succeeds with code {int} and the other fails with code {int}")
 	public void oneSucceedsAndOtherFails(int successCode, int failCode) {
 		assertThat("Expected exactly 2 responses", concurrentResponseCodes.size(), is(2));
-		List<Integer> sorted = concurrentResponseCodes.stream().sorted().toList();
-		assertThat("Expected one success (201) and one conflict (409)",
-				sorted, is(List.of(successCode, failCode)));
+		List<Integer> expected = Arrays.asList(successCode, failCode).stream().sorted().toList();
+		List<Integer> actual = concurrentResponseCodes.stream().sorted().toList();
+		assertThat("Expected one success and one failure", actual, is(expected));
 	}
 
 	@And("The response has status {string}")
@@ -155,6 +155,3 @@ public class TeamEditionRegistrationStepDefs {
 		return result.getResponse().getStatus();
 	}
 }
-
-
-

@@ -1,6 +1,5 @@
 package cat.udl.eps.softarch.fll.domain;
 
-import java.time.LocalTime;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import jakarta.persistence.Entity;
@@ -13,6 +12,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "matches")
@@ -22,38 +23,47 @@ public class Match extends UriEntity<Long> {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Getter
 	private LocalTime startTime;
 
+	@Getter
 	private LocalTime endTime;
 
+	@Getter
 	@JsonBackReference("round-matches")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "round_id")
 	private Round round;
 
+	@Getter
 	@JsonBackReference("table-matches")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "table_id")
 	private CompetitionTable competitionTable;
 
+	@Getter
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "team_a_id")
 	@JsonIdentityReference(alwaysAsId = true)
 	private Team teamA;
 
+	@Getter
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "team_b_id")
 	@JsonIdentityReference(alwaysAsId = true)
 	private Team teamB;
 
+	@Getter
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "referee_id")
 	private Referee referee;
 
+	@Getter
 	@Enumerated(EnumType.STRING)
 	private MatchState state = MatchState.SCHEDULED;
 
-	public Match() {}
+	public Match() {
+	}
 
 	@Override
 	public Long getId() {
@@ -64,64 +74,32 @@ public class Match extends UriEntity<Long> {
 		this.id = id;
 	}
 
-	public LocalTime getStartTime() {
-		return startTime;
-	}
-
 	public void setStartTime(LocalTime startTime) {
 		this.startTime = startTime;
-	}
-
-	public LocalTime getEndTime() {
-		return endTime;
 	}
 
 	public void setEndTime(LocalTime endTime) {
 		this.endTime = endTime;
 	}
 
-	public Round getRound() {
-		return round;
-	}
-
 	public void setRound(Round round) {
 		this.round = round;
-	}
-
-	public CompetitionTable getCompetitionTable() {
-		return competitionTable;
 	}
 
 	public void setCompetitionTable(CompetitionTable competitionTable) {
 		this.competitionTable = competitionTable;
 	}
 
-	public Team getTeamA() {
-		return teamA;
-	}
-
 	public void setTeamA(Team teamA) {
 		this.teamA = teamA;
-	}
-
-	public Team getTeamB() {
-		return teamB;
 	}
 
 	public void setTeamB(Team teamB) {
 		this.teamB = teamB;
 	}
 
-	public Referee getReferee() {
-		return referee;
-	}
-
 	public void setReferee(Referee referee) {
 		this.referee = referee;
-	}
-
-	public MatchState getState() {
-		return state;
 	}
 
 	public void setState(MatchState state) {

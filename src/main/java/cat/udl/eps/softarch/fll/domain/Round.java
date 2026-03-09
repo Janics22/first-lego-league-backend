@@ -1,7 +1,5 @@
 package cat.udl.eps.softarch.fll.domain;
 
-import java.util.ArrayList;
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
@@ -15,48 +13,43 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "rounds")
 public class Round extends UriEntity<Long> {
 
+	@Setter
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Getter
+	@Setter
 	@Column(unique = true)
 	private int number;
 
+	@Getter
 	@OneToMany(mappedBy = "round", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonManagedReference("round-matches")
 	private List<Match> matches = new ArrayList<>();
 
+	@Setter
+	@Getter
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "edition_id")
 	@JsonIdentityReference(alwaysAsId = true)
 	private Edition edition;
 
-	public Round() {}
+	public Round() {
+	}
 
 	@Override
 	public Long getId() {
 		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public int getNumber() {
-		return number;
-	}
-
-	public void setNumber(int number) {
-		this.number = number;
-	}
-
-	public List<Match> getMatches() {
-		return matches;
 	}
 
 	public void setMatches(List<Match> matches) {
@@ -76,11 +69,4 @@ public class Round extends UriEntity<Long> {
 		match.setRound(null);
 	}
 
-	public Edition getEdition() {
-		return edition;
-	}
-
-	public void setEdition(Edition edition) {
-		this.edition = edition;
-	}
 }

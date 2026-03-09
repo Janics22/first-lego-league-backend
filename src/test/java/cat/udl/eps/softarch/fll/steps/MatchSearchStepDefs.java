@@ -4,7 +4,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
-
 import java.time.LocalTime;
 import org.springframework.http.MediaType;
 import cat.udl.eps.softarch.fll.domain.CompetitionTable;
@@ -13,9 +12,10 @@ import cat.udl.eps.softarch.fll.domain.Round;
 import cat.udl.eps.softarch.fll.repository.MatchRepository;
 import cat.udl.eps.softarch.fll.repository.RoundRepository;
 import cat.udl.eps.softarch.fll.repository.CompetitionTableRepository;
-
 import io.cucumber.java.Before;
-import io.cucumber.java.en.*;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 
 public class MatchSearchStepDefs {
 
@@ -26,10 +26,7 @@ public class MatchSearchStepDefs {
 
 	private Long currentRoundId;
 
-	public MatchSearchStepDefs(StepDefs stepDefs,
-							   MatchRepository matchRepository,
-							   RoundRepository roundRepository,
-							   CompetitionTableRepository tableRepository) {
+	public MatchSearchStepDefs(StepDefs stepDefs, MatchRepository matchRepository, RoundRepository roundRepository, CompetitionTableRepository tableRepository) {
 		this.stepDefs = stepDefs;
 		this.matchRepository = matchRepository;
 		this.roundRepository = roundRepository;
@@ -74,47 +71,43 @@ public class MatchSearchStepDefs {
 	@When("I search matches with no filters")
 	public void iSearchMatchesWithNoFilters() throws Exception {
 		stepDefs.result = stepDefs.mockMvc.perform(
-			get("/matches/filter")
-				.param("page", "0")
-				.param("sort", "startTime,asc")
-				.param("sort", "id,asc")
-				.with(user("admin"))
-				.contentType(MediaType.APPLICATION_JSON)
-		);
+				get("/matches/filter")
+						.param("page", "0")
+						.param("sort", "startTime,asc")
+						.param("sort", "id,asc")
+						.with(user("admin"))
+						.contentType(MediaType.APPLICATION_JSON));
 	}
 
 	@When("I search matches with table {string} and round {int}")
 	public void iSearchMatchesWithTableAndRound(String tableId, Integer roundNumber) throws Exception {
 		stepDefs.result = stepDefs.mockMvc.perform(
-			get("/matches/filter")
-				.param("tableId", tableId)
-				.param("roundId", String.valueOf(currentRoundId))
-				.with(user("admin"))
-				.contentType(MediaType.APPLICATION_JSON)
-		);
+				get("/matches/filter")
+						.param("tableId", tableId)
+						.param("roundId", String.valueOf(currentRoundId))
+						.with(user("admin"))
+						.contentType(MediaType.APPLICATION_JSON));
 	}
 
 	@When("I search matches between {string} and {string}")
 	public void iSearchMatchesBetween(String start, String end) throws Exception {
 		stepDefs.result = stepDefs.mockMvc.perform(
-			get("/matches/filter")
-				.param("startFrom", start)
-				.param("endTo", end)
-				.with(user("admin"))
-				.contentType(MediaType.APPLICATION_JSON)
-		);
+				get("/matches/filter")
+						.param("startFrom", start)
+						.param("endTo", end)
+						.with(user("admin"))
+						.contentType(MediaType.APPLICATION_JSON));
 	}
 
 	@When("I search matches with table {string} between {string} and {string}")
 	public void iSearchMatchesWithTableBetween(String tableId, String start, String end) throws Exception {
 		stepDefs.result = stepDefs.mockMvc.perform(
-			get("/matches/filter")
-				.param("tableId", tableId)
-				.param("startFrom", start)
-				.param("endTo", end)
-				.with(user("admin"))
-				.contentType(MediaType.APPLICATION_JSON)
-		);
+				get("/matches/filter")
+						.param("tableId", tableId)
+						.param("startFrom", start)
+						.param("endTo", end)
+						.with(user("admin"))
+						.contentType(MediaType.APPLICATION_JSON));
 	}
 
 
@@ -127,10 +120,10 @@ public class MatchSearchStepDefs {
 	@Then("the response should contain matches")
 	public void theResponseShouldContainMatchesInOrder() throws Exception {
 		stepDefs.result
-			.andExpect(jsonPath("$.items[0].startTime").value("10:00:00"))
-			.andExpect(jsonPath("$.items[1].startTime").value("11:15:00"))
-			.andExpect(jsonPath("$.page").value(0))
-			.andExpect(jsonPath("$.totalElements").value(2));
+				.andExpect(jsonPath("$.items[0].startTime").value("10:00:00"))
+				.andExpect(jsonPath("$.items[1].startTime").value("11:15:00"))
+				.andExpect(jsonPath("$.page").value(0))
+				.andExpect(jsonPath("$.totalElements").value(2));
 	}
 
 	@Then("the error code should be \"INVALID_TIME_FILTER_RANGE\"")

@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +23,7 @@ public class EditionVolunteerController {
 	private final EditionVolunteerService editionVolunteerService;
 
 	@GetMapping("/{editionId}/volunteers")
+	@PreAuthorize("isAuthenticated()")
 	public EditionVolunteersResponse getVolunteersGroupedByType(@PathVariable Long editionId) {
 		return editionVolunteerService.getVolunteersGroupedByType(editionId);
 	}

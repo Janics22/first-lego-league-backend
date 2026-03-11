@@ -43,11 +43,6 @@ public class ManageCoachStepDefs {
 	public void iRetrieveCoach(String email) throws Exception {
 		stepDefs.result = stepDefs.mockMvc.perform(get("/coaches/search/findByEmailAddress?email={email}", email)
 				.with(AuthenticationStepDefs.authenticate()));
-
-		String content = stepDefs.result.andReturn().getResponse().getContentAsString();
-		if (content.contains("_links")) {
-			// Extreure URI si cal per a mètodes posteriors
-		}
 	}
 
 	@Then("The coach name is {string}")

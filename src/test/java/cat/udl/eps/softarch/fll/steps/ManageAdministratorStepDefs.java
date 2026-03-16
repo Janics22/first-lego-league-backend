@@ -5,7 +5,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import java.nio.charset.StandardCharsets;
@@ -39,8 +38,7 @@ public class ManageAdministratorStepDefs {
 								stepDefs.mapper.writeValueAsString(admin)).put("password", password).toString())
 						.characterEncoding(StandardCharsets.UTF_8)
 						.accept(MediaType.APPLICATION_JSON)
-						.with(AuthenticationStepDefs.authenticate()))
-				.andDo(print());
+						.with(AuthenticationStepDefs.authenticate()));
 	}
 
 	@When("I retrieve the administrator with username {string}")
@@ -48,8 +46,7 @@ public class ManageAdministratorStepDefs {
 		stepDefs.result = stepDefs.mockMvc.perform(
 				get("/administrators/{username}", username)
 						.accept(MediaType.APPLICATION_JSON)
-						.with(AuthenticationStepDefs.authenticate()))
-				.andDo(print());
+						.with(AuthenticationStepDefs.authenticate()));
 	}
 
 	@When("I delete the administrator with username {string}")
@@ -57,8 +54,7 @@ public class ManageAdministratorStepDefs {
 		stepDefs.result = stepDefs.mockMvc.perform(
 				delete("/administrators/{username}", username)
 						.accept(MediaType.APPLICATION_JSON)
-						.with(AuthenticationStepDefs.authenticate()))
-				.andDo(print());
+						.with(AuthenticationStepDefs.authenticate()));
 	}
 
 	@And("It has been created an administrator with username {string} and email {string}")
@@ -67,7 +63,6 @@ public class ManageAdministratorStepDefs {
 				get("/administrators/{username}", username)
 						.accept(MediaType.APPLICATION_JSON)
 						.with(AuthenticationStepDefs.authenticate()))
-				.andDo(print())
 				.andExpect(jsonPath("$.email", is(email)))
 				.andExpect(jsonPath("$.password").doesNotExist());
 	}
@@ -107,8 +102,7 @@ public class ManageAdministratorStepDefs {
 						.content(payload.toString())
 						.characterEncoding(StandardCharsets.UTF_8)
 						.accept(MediaType.APPLICATION_JSON)
-						.with(AuthenticationStepDefs.authenticate()))
-				.andDo(print());
+						.with(AuthenticationStepDefs.authenticate()));
 	}
 
 	@io.cucumber.java.en.Then("It has been updated an administrator with username {string} and email {string}")
@@ -117,7 +111,6 @@ public class ManageAdministratorStepDefs {
 				get("/administrators/{username}", username)
 						.accept(MediaType.APPLICATION_JSON)
 						.with(AuthenticationStepDefs.authenticate()))
-				.andDo(print())
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.email", is(expectedEmail)));
 	}

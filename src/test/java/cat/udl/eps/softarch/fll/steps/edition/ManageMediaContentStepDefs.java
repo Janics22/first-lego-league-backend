@@ -15,7 +15,7 @@ import cat.udl.eps.softarch.fll.steps.app.AuthenticationStepDefs;
 import cat.udl.eps.softarch.fll.steps.app.StepDefs;
 import org.springframework.http.MediaType;
 import cat.udl.eps.softarch.fll.domain.MediaContent;
-import cat.udl.eps.softarch.fll.repository.MediaContentRepository;
+import cat.udl.eps.softarch.fll.repository.project.MediaContentRepository;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;

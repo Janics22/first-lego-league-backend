@@ -20,8 +20,8 @@ import org.springframework.web.server.ResponseStatusException;
 import cat.udl.eps.softarch.fll.controller.dto.MatchTableAssignmentResponse;
 import cat.udl.eps.softarch.fll.domain.CompetitionTable;
 import cat.udl.eps.softarch.fll.domain.Match;
-import cat.udl.eps.softarch.fll.repository.CompetitionTableRepository;
-import cat.udl.eps.softarch.fll.repository.MatchRepository;
+import cat.udl.eps.softarch.fll.repository.match.CompetitionTableRepository;
+import cat.udl.eps.softarch.fll.repository.match.MatchRepository;
 
 @ExtendWith(MockitoExtension.class)
 class MatchTableAssignmentServiceTest {

@@ -7,8 +7,8 @@ import cat.udl.eps.softarch.fll.domain.EditionOperation;
 import cat.udl.eps.softarch.fll.domain.Team;
 import cat.udl.eps.softarch.fll.exception.EditionLifecycleException;
 import cat.udl.eps.softarch.fll.exception.EditionTeamRegistrationException;
-import cat.udl.eps.softarch.fll.repository.EditionRepository;
-import cat.udl.eps.softarch.fll.repository.TeamRepository;
+import cat.udl.eps.softarch.fll.repository.edition.EditionRepository;
+import cat.udl.eps.softarch.fll.repository.team.TeamRepository;
 
 @Service
 public class EditionTeamRegistrationService {

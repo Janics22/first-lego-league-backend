@@ -5,8 +5,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import cat.udl.eps.softarch.fll.domain.Administrator;
 import cat.udl.eps.softarch.fll.domain.User;
-import cat.udl.eps.softarch.fll.repository.AdministratorRepository;
-import cat.udl.eps.softarch.fll.repository.UserRepository;
+import cat.udl.eps.softarch.fll.repository.identity.AdministratorRepository;
+import cat.udl.eps.softarch.fll.repository.identity.UserRepository;
 import jakarta.annotation.PostConstruct;
 
 @Configuration

@@ -1,4 +1,4 @@
-package cat.udl.eps.softarch.fll.repository;
+package cat.udl.eps.softarch.fll.repository.match;
 
 import java.time.LocalTime;
 import java.util.List;

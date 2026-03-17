@@ -11,7 +11,7 @@ import cat.udl.eps.softarch.fll.steps.app.StepDefs;
 import org.springframework.http.MediaType;
 import com.fasterxml.jackson.databind.JsonNode;
 import cat.udl.eps.softarch.fll.domain.volunteer.Judge;
-import cat.udl.eps.softarch.fll.repository.JudgeRepository;
+import cat.udl.eps.softarch.fll.repository.volunteer.JudgeRepository;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;

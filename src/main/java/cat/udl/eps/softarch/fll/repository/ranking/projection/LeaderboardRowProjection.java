@@ -1,4 +1,4 @@
-package cat.udl.eps.softarch.fll.repository.projection;
+package cat.udl.eps.softarch.fll.repository.ranking.projection;
 
 public interface LeaderboardRowProjection {
 	String getTeamId();

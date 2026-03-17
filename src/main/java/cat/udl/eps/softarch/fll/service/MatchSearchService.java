@@ -10,9 +10,9 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import cat.udl.eps.softarch.fll.domain.Match;
 import cat.udl.eps.softarch.fll.domain.Team;
-import cat.udl.eps.softarch.fll.repository.MatchRepository;
-import cat.udl.eps.softarch.fll.repository.MatchSpecifications;
-import cat.udl.eps.softarch.fll.repository.TeamRepository;
+import cat.udl.eps.softarch.fll.repository.match.MatchRepository;
+import cat.udl.eps.softarch.fll.repository.match.specification.MatchSpecifications;
+import cat.udl.eps.softarch.fll.repository.team.TeamRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 

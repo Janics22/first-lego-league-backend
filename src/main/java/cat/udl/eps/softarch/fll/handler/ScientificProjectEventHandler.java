@@ -6,8 +6,8 @@ import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
 import org.springframework.stereotype.Component;
 import cat.udl.eps.softarch.fll.domain.ScientificProject;
 import cat.udl.eps.softarch.fll.exception.DomainValidationException;
-import cat.udl.eps.softarch.fll.repository.EditionRepository;
-import cat.udl.eps.softarch.fll.repository.TeamRepository;
+import cat.udl.eps.softarch.fll.repository.edition.EditionRepository;
+import cat.udl.eps.softarch.fll.repository.team.TeamRepository;
 
 @Component
 @RepositoryEventHandler

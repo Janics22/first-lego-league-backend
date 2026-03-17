@@ -1,4 +1,4 @@
-package cat.udl.eps.softarch.fll.repository;
+package cat.udl.eps.softarch.fll.repository.volunteer;
 
 import java.util.List;
 import java.util.Optional;

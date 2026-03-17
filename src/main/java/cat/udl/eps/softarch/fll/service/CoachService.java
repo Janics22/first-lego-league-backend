@@ -6,7 +6,7 @@ import cat.udl.eps.softarch.fll.domain.Coach;
 import cat.udl.eps.softarch.fll.domain.Team;
 import cat.udl.eps.softarch.fll.dto.AssignCoachResponse;
 import cat.udl.eps.softarch.fll.exception.TeamCoachAssignmentException;
-import cat.udl.eps.softarch.fll.repository.TeamRepository;
+import cat.udl.eps.softarch.fll.repository.team.TeamRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.LockModeType;
 import jakarta.persistence.PersistenceContext;

@@ -1,4 +1,4 @@
-package cat.udl.eps.softarch.fll.repository;
+package cat.udl.eps.softarch.fll.repository.project;
 
 import java.util.List;
 import org.springframework.data.repository.CrudRepository;

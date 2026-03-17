@@ -1,4 +1,4 @@
-package cat.udl.eps.softarch.fll.repository;
+package cat.udl.eps.softarch.fll.repository.match.specification;
 
 import java.time.LocalTime;
 import org.springframework.data.jpa.domain.Specification;

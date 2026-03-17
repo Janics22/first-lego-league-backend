@@ -21,9 +21,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 import cat.udl.eps.softarch.fll.controller.dto.LeaderboardPageResponse;
-import cat.udl.eps.softarch.fll.repository.EditionRepository;
-import cat.udl.eps.softarch.fll.repository.MatchResultRepository;
-import cat.udl.eps.softarch.fll.repository.projection.LeaderboardRowProjection;
+import cat.udl.eps.softarch.fll.repository.edition.EditionRepository;
+import cat.udl.eps.softarch.fll.repository.match.MatchResultRepository;
+import cat.udl.eps.softarch.fll.repository.ranking.projection.LeaderboardRowProjection;
 
 @ExtendWith(MockitoExtension.class)
 class LeaderboardServiceTest {

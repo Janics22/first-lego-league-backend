@@ -18,10 +18,10 @@ import cat.udl.eps.softarch.fll.domain.volunteer.Floater;
 import cat.udl.eps.softarch.fll.domain.volunteer.Judge;
 import cat.udl.eps.softarch.fll.domain.volunteer.Referee;
 import cat.udl.eps.softarch.fll.exception.EditionVolunteerException;
-import cat.udl.eps.softarch.fll.repository.EditionRepository;
-import cat.udl.eps.softarch.fll.repository.FloaterRepository;
-import cat.udl.eps.softarch.fll.repository.JudgeRepository;
-import cat.udl.eps.softarch.fll.repository.RefereeRepository;
+import cat.udl.eps.softarch.fll.repository.edition.EditionRepository;
+import cat.udl.eps.softarch.fll.repository.volunteer.FloaterRepository;
+import cat.udl.eps.softarch.fll.repository.volunteer.JudgeRepository;
+import cat.udl.eps.softarch.fll.repository.volunteer.RefereeRepository;
 
 @ExtendWith(MockitoExtension.class)
 class EditionVolunteerServiceTest {

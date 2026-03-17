@@ -6,7 +6,7 @@ import cat.udl.eps.softarch.fll.domain.Edition;
 import cat.udl.eps.softarch.fll.domain.EditionOperation;
 import cat.udl.eps.softarch.fll.domain.EditionState;
 import cat.udl.eps.softarch.fll.exception.EditionLifecycleException;
-import cat.udl.eps.softarch.fll.repository.EditionRepository;
+import cat.udl.eps.softarch.fll.repository.edition.EditionRepository;
 
 @Service
 public class EditionLifecycleService {

@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.GlobalAuthenticationConfigurerAdapter;
 import cat.udl.eps.softarch.fll.domain.User;
-import cat.udl.eps.softarch.fll.repository.UserRepository;
+import cat.udl.eps.softarch.fll.repository.identity.UserRepository;
 
 @Configuration
 public class AuthenticationConfig extends GlobalAuthenticationConfigurerAdapter {

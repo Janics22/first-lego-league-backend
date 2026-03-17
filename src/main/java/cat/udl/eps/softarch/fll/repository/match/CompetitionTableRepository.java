@@ -1,4 +1,4 @@
-package cat.udl.eps.softarch.fll.repository;
+package cat.udl.eps.softarch.fll.repository.match;
 
 import java.util.Optional;
 import org.springframework.data.jpa.repository.Lock;

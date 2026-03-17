@@ -1,4 +1,4 @@
-package cat.udl.eps.softarch.fll.repository;
+package cat.udl.eps.softarch.fll.repository.match;
 
 import java.util.List;
 import org.springframework.data.domain.Page;
@@ -11,7 +11,7 @@ import org.springframework.data.rest.core.annotation.RestResource;
 import cat.udl.eps.softarch.fll.domain.Match;
 import cat.udl.eps.softarch.fll.domain.MatchResult;
 import cat.udl.eps.softarch.fll.domain.Team;
-import cat.udl.eps.softarch.fll.repository.projection.LeaderboardRowProjection;
+import cat.udl.eps.softarch.fll.repository.ranking.projection.LeaderboardRowProjection;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 

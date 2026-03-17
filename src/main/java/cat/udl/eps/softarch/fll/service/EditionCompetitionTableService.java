@@ -10,8 +10,8 @@ import cat.udl.eps.softarch.fll.controller.dto.EditionCompetitionTableResponse;
 import cat.udl.eps.softarch.fll.controller.dto.EditionTableMatchResponse;
 import cat.udl.eps.softarch.fll.domain.Match;
 import cat.udl.eps.softarch.fll.exception.EditionCompetitionTableNotFoundException;
-import cat.udl.eps.softarch.fll.repository.EditionRepository;
-import cat.udl.eps.softarch.fll.repository.MatchRepository;
+import cat.udl.eps.softarch.fll.repository.edition.EditionRepository;
+import cat.udl.eps.softarch.fll.repository.match.MatchRepository;
 import lombok.RequiredArgsConstructor;
 
 @Service

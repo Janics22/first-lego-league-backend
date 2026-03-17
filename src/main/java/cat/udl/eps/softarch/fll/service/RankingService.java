@@ -2,8 +2,8 @@ package cat.udl.eps.softarch.fll.service;
 
 import cat.udl.eps.softarch.fll.domain.MatchResult;
 import cat.udl.eps.softarch.fll.domain.Ranking;
-import cat.udl.eps.softarch.fll.repository.MatchResultRepository;
-import cat.udl.eps.softarch.fll.repository.RankingRepository;
+import cat.udl.eps.softarch.fll.repository.match.MatchResultRepository;
+import cat.udl.eps.softarch.fll.repository.ranking.RankingRepository;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -12,10 +12,12 @@ import cat.udl.eps.softarch.fll.domain.Match;
 import cat.udl.eps.softarch.fll.domain.MatchResult;
 import cat.udl.eps.softarch.fll.domain.Round;
 import cat.udl.eps.softarch.fll.domain.Team;
-import cat.udl.eps.softarch.fll.repository.MatchRepository;
-import cat.udl.eps.softarch.fll.repository.MatchResultRepository;
-import cat.udl.eps.softarch.fll.repository.RoundRepository;
-import cat.udl.eps.softarch.fll.repository.TeamRepository;
+import cat.udl.eps.softarch.fll.repository.match.MatchRepository;
+import cat.udl.eps.softarch.fll.repository.match.MatchResultRepository;
+import cat.udl.eps.softarch.fll.repository.match.RoundRepository;
+import cat.udl.eps.softarch.fll.repository.team.TeamRepository;
+import cat.udl.eps.softarch.fll.steps.app.AuthenticationStepDefs;
+import cat.udl.eps.softarch.fll.steps.app.StepDefs;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import net.minidev.json.JSONObject;
@@ -170,10 +172,7 @@ public class ScoreStepDefs {
 	}
 
 	private String createTeam(String name) {
-		Team team = new Team(name);
-		team.setCity("Igualada");
-		team.setFoundationYear(2000);
-		team.setCategory("Junior");
+		Team team = Team.create(name, "Igualada", 2000, "Junior");
 		team.setInscriptionDate(LocalDate.now());
 
 		Team saved = teamRepository.save(team);
@@ -190,10 +189,7 @@ public class ScoreStepDefs {
 		Team team = teamRepository.findById(teamId)
 				.orElseThrow(() -> new RuntimeException("TEAM NOT FOUND: " + teamId));
 
-		MatchResult matchResult = new MatchResult();
-		matchResult.setScore(initialScore);
-		matchResult.setTeam(team);
-		matchResult.setMatch(match);
+		MatchResult matchResult = MatchResult.create(initialScore, match, team);
 
 		matchResultRepository.save(matchResult);
 	}

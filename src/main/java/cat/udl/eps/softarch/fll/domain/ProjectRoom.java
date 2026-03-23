@@ -2,6 +2,7 @@ package cat.udl.eps.softarch.fll.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import cat.udl.eps.softarch.fll.domain.volunteer.Judge;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

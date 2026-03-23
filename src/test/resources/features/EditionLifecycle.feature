@@ -5,7 +5,7 @@ Feature: Edition Lifecycle
 
   Background:
     Given There is a registered user with username "user" and password "password" and email "user@sample.app"
-    And I login as "user" with password "password"
+    And I login as "admin" with password "password"
 
   @HappyPath
   Scenario: Transition edition from DRAFT to OPEN

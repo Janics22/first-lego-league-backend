@@ -5,8 +5,8 @@ Feature: Manage Coaches
 
   Background:
     # first we create the user at the bbdd and then we login
-    Given There is a registered user with username "admin" and password "admin" and email "admin@fll.udl.cat"
-    And I login as "admin" with password "admin"
+    Given There is a registered user with username "admin" and password "password" and email "admin@fll.udl.cat"
+    And I login as "admin" with password "password"
 
   Scenario: Create a new coach
     # This sentence must match the regex in your CoachStepDefs.java

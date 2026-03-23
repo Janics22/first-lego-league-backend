@@ -1,12 +1,12 @@
 package cat.udl.eps.softarch.fll.service;
 
 import cat.udl.eps.softarch.fll.domain.ProjectRoom;
-import cat.udl.eps.softarch.fll.domain.Judge;
+import cat.udl.eps.softarch.fll.domain.volunteer.Judge;
 import cat.udl.eps.softarch.fll.api.dto.AssignJudgeRequest;
 import cat.udl.eps.softarch.fll.api.dto.AssignJudgeResponse;
 import cat.udl.eps.softarch.fll.exception.RoomAssignmentException;
-import cat.udl.eps.softarch.fll.repository.ProjectRoomRepository;
-import cat.udl.eps.softarch.fll.repository.JudgeRepository;
+import cat.udl.eps.softarch.fll.repository.project.ProjectRoomRepository;
+import cat.udl.eps.softarch.fll.repository.volunteer.JudgeRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.annotation.Isolation;

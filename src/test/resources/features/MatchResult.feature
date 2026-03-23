@@ -8,8 +8,8 @@ Feature: Manage Match Results
     Then The response code is 200
 
   Scenario: Direct MatchResult creation is disabled
-    Given There is a registered user with username "match-results-user" and password "password" and email "match-results-user@sample.app"
-    And I login as "match-results-user" with password "password"
+    Given There is a registered user with username "admin" and password "password" and email "admin@fll.udl.cat"
+    And I login as "admin" with password "password"
     And The dependencies exist
     When I create a match result with score 10
     Then The response code is 405

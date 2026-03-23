@@ -5,8 +5,8 @@ Feature: TeamMember REST CRUD
 
     Background:
         Given the team member API system is empty
-        And There is a registered user with username "user" and password "password" and email "user@sample.app"
-        And I login as "user" with password "password"
+        And There is a registered user with username "admin" and password "password" and email "admin@sample.app"
+        And I login as "admin" with password "password"
 
     Scenario: Successfully creating a team member linked to an existing team
         Given a team with name "AlphaTeam" exists for team member management
@@ -45,6 +45,24 @@ Feature: TeamMember REST CRUD
         Then The response code is 200
         And The team member list contains name "Mia"
         And The team member list contains name "Noah"
+
+    Scenario: Retrieve team members by role returns results
+        Given a team with name "RoleTeam" exists for team member management
+        And I create a team member with name "Pol" birth date "2010-01-01" and role "Captain" for team "RoleTeam"
+        And The response code is 201
+        And I create a team member with name "Nora" birth date "2011-05-05" and role "Designer" for team "RoleTeam"
+        And The response code is 201
+        When I search team members by role "Captain"
+        Then The response code is 200
+        And The team member list contains name "Pol"
+
+    Scenario: Retrieve team members by role returns empty list when none match
+        Given a team with name "EmptyRoleTeam" exists for team member management
+        And I create a team member with name "Lia" birth date "2010-08-08" and role "Programmer" for team "EmptyRoleTeam"
+        And The response code is 201
+        When I search team members by role "Unknown"
+        Then The response code is 200
+        And The team member list is empty
 
     Scenario: Deleting a team member
         Given a team with name "DeleteTeam" exists for team member management

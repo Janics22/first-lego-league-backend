@@ -6,7 +6,7 @@ Feature: Match table assignment
 	Background:
 		Given the match table assignment system is empty
 		And There is a registered user with username "user" and password "password" and email "user@sample.app"
-		And I login as "user" with password "password"
+		And I login as "admin" with password "password"
 
 	Scenario: Valid assignment
 		Given a scheduled match without table exists from "11:00" to "11:20"

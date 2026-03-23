@@ -27,3 +27,23 @@ Feature: Search matches with filters
 		When I search matches between "14:00:00" and "10:00:00"
 		Then the response status should be 422
 		And the error code should be "INVALID_TIME_FILTER_RANGE"
+
+	@FindByTeam
+	Scenario: Retrieve matches for a team
+		Given a team "LegoStars" exists with matches
+		When I search matches for team "/teams/LegoStars"
+		Then the match response status should be 200
+		And the team matches response should contain matches for "LegoStars"
+
+	@FindByTeam
+	Scenario: Returns empty list when team has no matches
+		Given a team "EmptyTeam" exists with no matches
+		When I search matches for team "/teams/EmptyTeam"
+		Then the match response status should be 200
+		And the team matches response should be empty
+
+	@FindByTeam
+	Scenario: Returns error when team does not exist
+		When I search matches for team "/teams/NonExistentTeam"
+		Then the match response status should be 404
+		And the team matches error should be "TEAM_NOT_FOUND"

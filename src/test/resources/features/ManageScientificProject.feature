@@ -5,7 +5,7 @@ Feature: Manage Scientific Project
 
     Scenario: Create a scientific project with associated team and edition
         Given There is a registered user with username "user" and password "password" and email "user@sample.app"
-        And I login as "user" with password "password"
+        And I login as "admin" with password "password"
         When I create a new scientific project with score 85 and comments "Great innovation" for team "LegoStars" and a valid edition
         Then The response code is 201
         And The response has a team link
@@ -15,7 +15,7 @@ Feature: Manage Scientific Project
 
     Scenario: Reject a scientific project without team
         Given There is a registered user with username "user" and password "password" and email "user@sample.app"
-        And I login as "user" with password "password"
+        And I login as "admin" with password "password"
         When I create a new scientific project with score 80 and comments "Missing team" without team and with valid edition
         Then The response code is 400
         And The error code is "TEAM_REQUIRED"
@@ -23,7 +23,7 @@ Feature: Manage Scientific Project
 
     Scenario: Reject a scientific project without edition
         Given There is a registered user with username "user" and password "password" and email "user@sample.app"
-        And I login as "user" with password "password"
+        And I login as "admin" with password "password"
         When I create a new scientific project with score 81 and comments "Missing edition" without edition and with valid team "EditionlessTeam"
         Then The response code is 400
         And The error code is "EDITION_REQUIRED"
@@ -31,7 +31,7 @@ Feature: Manage Scientific Project
 
     Scenario: Reject a scientific project with invalid edition reference
         Given There is a registered user with username "user" and password "password" and email "user@sample.app"
-        And I login as "user" with password "password"
+        And I login as "admin" with password "password"
         When I create a new scientific project with score 82 and comments "Unknown edition" and invalid edition for team "EditionGhosts"
         Then The response code is 400
         And The error code is "EDITION_NOT_FOUND"
@@ -39,7 +39,7 @@ Feature: Manage Scientific Project
 
     Scenario: Reject a scientific project when team is not registered in edition
         Given There is a registered user with username "user" and password "password" and email "user@sample.app"
-        And I login as "user" with password "password"
+        And I login as "admin" with password "password"
         When I create a new scientific project with score 83 and comments "Team edition mismatch" for unregistered team "MismatchTeam"
         Then The response code is 400
         And The error code is "EDITION_TEAM_MISMATCH"
@@ -47,7 +47,7 @@ Feature: Manage Scientific Project
 
     Scenario: Reject a scientific project with invalid team reference
         Given There is a registered user with username "user" and password "password" and email "user@sample.app"
-        And I login as "user" with password "password"
+        And I login as "admin" with password "password"
         When I create a new scientific project with score 84 and comments "Unknown team" and invalid team with valid edition
         Then The response code is 400
         And The error code is "TEAM_NOT_FOUND"

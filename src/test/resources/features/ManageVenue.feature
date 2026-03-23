@@ -4,14 +4,14 @@ Feature: Manage Venue
     I want to be able to create, retrieve, edit and delete venues
 
     Scenario: Create a venue
-        Given I login as "demo" with password "password"
+        Given I login as "admin" with password "password"
         And There is no venue with name "My Venue"
         When I create a new venue with name "My Venue" and city "Lleida"
         Then The response code is 201
         And A venue with name "My Venue" and city "Lleida" exists
 
     Scenario: Retrieve a venue
-        Given I login as "demo" with password "password"
+        Given I login as "admin" with password "password"
         And There is no venue with name "Read Venue"
         And There is a venue with name "Read Venue" and city "Igualada"
         When I retrieve the venue with name "Read Venue"
@@ -19,7 +19,7 @@ Feature: Manage Venue
         And The response contains venue name "Read Venue" and city "Igualada"
 
     Scenario: Update a venue
-        Given I login as "demo" with password "password"
+        Given I login as "admin" with password "password"
         And There is no venue with name "Update Venue"
         And There is a venue with name "Update Venue" and city "Barcelona"
         When I update the venue with name "Update Venue" to city "Manresa"
@@ -27,7 +27,7 @@ Feature: Manage Venue
         And The venue with name "Update Venue" has city "Manresa"
 
     Scenario: Delete a venue
-        Given I login as "demo" with password "password"
+        Given I login as "admin" with password "password"
         And There is no venue with name "Delete Venue"
         And There is a venue with name "Delete Venue" and city "Tarragona"
         When I delete the venue with name "Delete Venue"
@@ -35,7 +35,7 @@ Feature: Manage Venue
         And No venue with name "Delete Venue" exists
 
     Scenario: Search venues by city returns matching results
-        Given I login as "demo" with password "password"
+        Given I login as "admin" with password "password"
         And There are no venues with city "UniqueCitySearchVille"
         And There is no venue with name "City Search Venue"
         And There is a venue with name "City Search Venue" and city "UniqueCitySearchVille"
@@ -46,7 +46,7 @@ Feature: Manage Venue
         And Each venue in the search response has name, city and self link
 
     Scenario: Search venues by city returns empty list when no match
-        Given I login as "demo" with password "password"
+        Given I login as "admin" with password "password"
         When I search venues by city "ZzNonExistentCityForVenueSearch"
         Then The response code is 200
         And The venue search response should contain 0 venues

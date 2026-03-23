@@ -1,7 +1,7 @@
 Feature: Manage Floater REST API
 
   Background:
-    Given I login as "user" with password "password"
+    Given I login as "admin" with password "password"
     And the volunteer system is empty
 
   Scenario: Create a floater

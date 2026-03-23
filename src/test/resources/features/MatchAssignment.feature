@@ -6,7 +6,7 @@ Feature: Match referee assignment
 	Background:
 		Given the match assignment system is empty
 		And There is a registered user with username "user" and password "password" and email "user@sample.app"
-		And I login as "user" with password "password"
+		And I login as "admin" with password "password"
 
 	Scenario: Assign referee to match successfully
 		Given a scheduled match exists from "10:00" to "11:00"

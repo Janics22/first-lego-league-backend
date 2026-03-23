@@ -1,11 +1,11 @@
 package cat.udl.eps.softarch.fll.exception;
 
-import cat.udl.eps.softarch.fll.controller.dto.ApiErrorResponse;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import cat.udl.eps.softarch.fll.controller.dto.ApiErrorResponse;
+import jakarta.servlet.http.HttpServletRequest;
 
 @RestControllerAdvice
 public class MatchAssignmentExceptionHandler {
@@ -18,7 +18,7 @@ public class MatchAssignmentExceptionHandler {
 			case ROUND_NOT_FOUND, MATCH_NOT_FOUND, REFEREE_NOT_FOUND -> HttpStatus.NOT_FOUND;
 			case AVAILABILITY_CONFLICT, MATCH_ALREADY_HAS_REFEREE, DUPLICATE_MATCH_IN_BATCH -> HttpStatus.CONFLICT;
 			case INVALID_ID_FORMAT -> HttpStatus.BAD_REQUEST;
-			case INVALID_ROLE, INVALID_MATCH_STATE -> HttpStatus.UNPROCESSABLE_ENTITY;
+			case INVALID_ROLE, INVALID_MATCH_STATE -> HttpStatus.UNPROCESSABLE_CONTENT;
 		};
 
 		BatchErrorDetails details = ex.hasBatchDetails()

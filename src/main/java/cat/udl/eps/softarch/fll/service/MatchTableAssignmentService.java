@@ -8,8 +8,8 @@ import org.springframework.web.server.ResponseStatusException;
 import cat.udl.eps.softarch.fll.controller.dto.MatchTableAssignmentResponse;
 import cat.udl.eps.softarch.fll.domain.CompetitionTable;
 import cat.udl.eps.softarch.fll.domain.Match;
-import cat.udl.eps.softarch.fll.repository.CompetitionTableRepository;
-import cat.udl.eps.softarch.fll.repository.MatchRepository;
+import cat.udl.eps.softarch.fll.repository.match.CompetitionTableRepository;
+import cat.udl.eps.softarch.fll.repository.match.MatchRepository;
 
 @Service
 public class MatchTableAssignmentService {
@@ -48,13 +48,13 @@ public class MatchTableAssignmentService {
 
 	private void validateMatchSchedule(Match match) {
 		if (match.getStartTime() == null) {
-			throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Match is missing start time");
+			throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_CONTENT, "Match is missing start time");
 		}
 		if (match.getEndTime() == null) {
-			throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Match is missing end time");
+			throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_CONTENT, "Match is missing end time");
 		}
 		if (!match.getEndTime().isAfter(match.getStartTime())) {
-			throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Match end time must be after start time");
+			throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_CONTENT, "Match end time must be after start time");
 		}
 	}
 

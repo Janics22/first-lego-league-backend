@@ -8,15 +8,16 @@ Feature: Manage Awards
 		Then The response code is 200
 
 	Scenario: Create a valid Award and retrieve it
-		Given I'm not logged in
+		Given I login as "admin" with password "password"
 		And The dependencies exist
 		When I create an award with name "Best Innovation"
 		Then The response code is 201
+		And I logout
 		When I request the awards list
 		Then The response code is 200
 
 	Scenario: Create an award missing required fields
-		Given I'm not logged in
+		Given I login as "admin" with password "password"
 		And The dependencies exist
 		When I create an award with no name
 		Then The response code is 400

@@ -1,12 +1,12 @@
 package cat.udl.eps.softarch.fll.handler;
 
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import cat.udl.eps.softarch.fll.controller.dto.ApiErrorResponse;
 import cat.udl.eps.softarch.fll.exception.EditionTeamRegistrationException;
+import jakarta.servlet.http.HttpServletRequest;
 
 @RestControllerAdvice
 public class EditionTeamRegistrationExceptionHandler {
@@ -24,7 +24,7 @@ public class EditionTeamRegistrationExceptionHandler {
 		return switch (error) {
 			case "EDITION_NOT_FOUND", "TEAM_NOT_FOUND" -> HttpStatus.NOT_FOUND;
 			case "MAX_TEAMS_REACHED", "TEAM_ALREADY_REGISTERED" -> HttpStatus.CONFLICT;
-			case "EDITION_OPERATION_NOT_ALLOWED" -> HttpStatus.UNPROCESSABLE_ENTITY;
+			case "EDITION_OPERATION_NOT_ALLOWED" -> HttpStatus.UNPROCESSABLE_CONTENT;
 			default -> HttpStatus.BAD_REQUEST;
 		};
 	}

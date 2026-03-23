@@ -4,7 +4,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
-import cat.udl.eps.softarch.fll.repository.UserRepository;
+import cat.udl.eps.softarch.fll.repository.identity.UserRepository;
 
 @Component
 public class BasicUserDetailsService implements UserDetailsService {

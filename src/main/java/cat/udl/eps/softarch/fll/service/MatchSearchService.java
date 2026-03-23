@@ -1,6 +1,7 @@
 package cat.udl.eps.softarch.fll.service;
 
 import java.time.LocalTime;
+import java.util.List;
 import cat.udl.eps.softarch.fll.dto.MatchSearchItemResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -8,8 +9,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import cat.udl.eps.softarch.fll.domain.Match;
-import cat.udl.eps.softarch.fll.repository.MatchRepository;
-import cat.udl.eps.softarch.fll.repository.MatchSpecifications;
+import cat.udl.eps.softarch.fll.domain.Team;
+import cat.udl.eps.softarch.fll.repository.match.MatchRepository;
+import cat.udl.eps.softarch.fll.repository.match.specification.MatchSpecifications;
+import cat.udl.eps.softarch.fll.repository.team.TeamRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 
@@ -18,6 +21,7 @@ import org.springframework.data.domain.Sort;
 public class MatchSearchService {
 
 	private final MatchRepository matchRepository;
+	private final TeamRepository teamRepository;
 
 	public Page<MatchSearchItemResponse> searchMatches(
 		LocalTime startFrom,
@@ -51,6 +55,15 @@ public class MatchSearchService {
 		if (startFrom != null && endTo != null && startFrom.isAfter(endTo)) {
 			throw new IllegalArgumentException("INVALID_TIME_FILTER_RANGE");
 		}
+	}
+
+	public List<MatchSearchItemResponse> findByTeam(String teamUri) {
+		String teamName = teamUri.contains("/") ? teamUri.substring(teamUri.lastIndexOf('/') + 1) : teamUri;
+		Team team = teamRepository.findById(teamName)
+			.orElseThrow(() -> new IllegalArgumentException("TEAM_NOT_FOUND"));
+		return matchRepository.findByTeam(team).stream()
+			.map(this::toDto)
+			.toList();
 	}
 
 	private MatchSearchItemResponse toDto(Match match) {

@@ -20,6 +20,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableWebSecurity
 @EnableMethodSecurity
 public class WebSecurityConfig {
+
 	@Value("${allowed-origins}")
 	String[] allowedOrigins;
 
@@ -28,29 +29,33 @@ public class WebSecurityConfig {
 		http.authorizeHttpRequests(auth -> auth
 				.requestMatchers(HttpMethod.GET, "/identity").authenticated()
 				.requestMatchers(HttpMethod.GET, "/users").authenticated()
-				.requestMatchers(HttpMethod.GET, "/editions/*/volunteers").authenticated()
 				.requestMatchers(HttpMethod.POST, "/users").anonymous()
-				.requestMatchers(HttpMethod.POST, "/matchResults/register").authenticated()
 				.requestMatchers(HttpMethod.POST, "/users/*").denyAll()
-				.requestMatchers(HttpMethod.POST, "/*/*").authenticated()
-				.requestMatchers(HttpMethod.PUT, "/*/*").authenticated()
-				.requestMatchers(HttpMethod.PATCH, "/*/*").authenticated()
-				.requestMatchers(HttpMethod.DELETE, "/*/*").authenticated()
-				.anyRequest().permitAll())
-				.csrf(csrf -> csrf.disable())
-				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-				.cors(cors -> cors.configurationSource(corsConfigurationSource()))
-				.httpBasic(httpBasic -> httpBasic.realmName("demo"));
+				.requestMatchers(HttpMethod.POST, "/rounds/*/scores").authenticated()
+				.requestMatchers(HttpMethod.GET, "/rounds/*/scores").authenticated()
+				.requestMatchers(HttpMethod.POST, "/**").hasRole(UserRoles.ADMIN)
+				.requestMatchers(HttpMethod.PUT, "/**").hasRole(UserRoles.ADMIN)
+				.requestMatchers(HttpMethod.PATCH, "/**").hasRole(UserRoles.ADMIN)
+				.requestMatchers(HttpMethod.DELETE, "/**").hasRole(UserRoles.ADMIN)
+
+				.anyRequest().permitAll()
+		)
+		.csrf(csrf -> csrf.disable())
+		.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+		.cors(cors -> cors.configurationSource(corsConfigurationSource()))
+		.httpBasic(httpBasic -> httpBasic.realmName("demo"));
+
 		return http.build();
 	}
 
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration corsConfiguration = new CorsConfiguration();
-		corsConfiguration.setAllowedOrigins(Arrays.asList(allowedOrigins));
+		corsConfiguration.setAllowedOriginPatterns(Arrays.asList(allowedOrigins));
 		corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
 		corsConfiguration.setAllowedHeaders(List.of("*"));
 		corsConfiguration.setAllowCredentials(true);
+
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", corsConfiguration);
 		return source;

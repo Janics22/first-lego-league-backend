@@ -1,11 +1,11 @@
 package cat.udl.eps.softarch.fll.exception;
 
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import cat.udl.eps.softarch.fll.controller.dto.ApiErrorResponse;
+import jakarta.servlet.http.HttpServletRequest;
 
 @RestControllerAdvice
 public class MatchScheduleExceptionHandler {
@@ -15,7 +15,7 @@ public class MatchScheduleExceptionHandler {
 			MatchScheduleException ex,
 			HttpServletRequest request) {
 		HttpStatus status = switch (ex.getErrorCode()) {
-			case INVALID_TIME_RANGE -> HttpStatus.UNPROCESSABLE_ENTITY;
+			case INVALID_TIME_RANGE -> HttpStatus.UNPROCESSABLE_CONTENT;
 			case TABLE_TIME_OVERLAP -> HttpStatus.CONFLICT;
 		};
 		return ResponseEntity.status(status)

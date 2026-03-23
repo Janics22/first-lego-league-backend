@@ -1,17 +1,16 @@
 package cat.udl.eps.softarch.fll.service;
 
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import cat.udl.eps.softarch.fll.domain.Coach;
 import cat.udl.eps.softarch.fll.domain.Team;
 import cat.udl.eps.softarch.fll.dto.AssignCoachResponse;
 import cat.udl.eps.softarch.fll.exception.TeamCoachAssignmentException;
-import cat.udl.eps.softarch.fll.repository.CoachRepository;
-import cat.udl.eps.softarch.fll.repository.TeamRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import jakarta.persistence.LockModeType;
+import cat.udl.eps.softarch.fll.repository.team.TeamRepository;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.LockModeType;
 import jakarta.persistence.PersistenceContext;
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +18,6 @@ import jakarta.persistence.PersistenceContext;
 public class CoachService {
 
 	private final TeamRepository teamRepository;
-	private final CoachRepository coachRepository;
 
 	@PersistenceContext
 	private EntityManager entityManager;

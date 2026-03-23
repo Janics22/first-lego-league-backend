@@ -8,7 +8,7 @@ import cat.udl.eps.softarch.fll.domain.Match;
 import cat.udl.eps.softarch.fll.service.MatchScheduleValidationService;
 
 @Component
-@RepositoryEventHandler(Match.class)
+@RepositoryEventHandler
 public class MatchEventHandler {
 
 	private final MatchScheduleValidationService validationService;

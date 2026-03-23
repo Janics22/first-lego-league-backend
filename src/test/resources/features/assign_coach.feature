@@ -1,5 +1,8 @@
 Feature: Assign coach to team
 
+	Background:
+		Given I login as "admin" with password "password"
+
 	Scenario: Successfully assign coach to team
 		Given a team "TeamA" exists
 		And a coach with id 1 exists

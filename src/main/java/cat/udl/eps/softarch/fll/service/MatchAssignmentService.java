@@ -14,14 +14,14 @@ import cat.udl.eps.softarch.fll.controller.dto.BatchMatchAssignmentItemResponse;
 import cat.udl.eps.softarch.fll.controller.dto.BatchMatchAssignmentResponse;
 import cat.udl.eps.softarch.fll.domain.Match;
 import cat.udl.eps.softarch.fll.domain.MatchState;
-import cat.udl.eps.softarch.fll.domain.Referee;
+import cat.udl.eps.softarch.fll.domain.volunteer.Referee;
 import cat.udl.eps.softarch.fll.domain.Round;
-import cat.udl.eps.softarch.fll.domain.Volunteer;
+import cat.udl.eps.softarch.fll.domain.volunteer.Volunteer;
 import cat.udl.eps.softarch.fll.exception.MatchAssignmentErrorCode;
 import cat.udl.eps.softarch.fll.exception.MatchAssignmentException;
-import cat.udl.eps.softarch.fll.repository.MatchRepository;
-import cat.udl.eps.softarch.fll.repository.RoundRepository;
-import cat.udl.eps.softarch.fll.repository.VolunteerRepository;
+import cat.udl.eps.softarch.fll.repository.match.MatchRepository;
+import cat.udl.eps.softarch.fll.repository.match.RoundRepository;
+import cat.udl.eps.softarch.fll.repository.volunteer.VolunteerRepository;
 
 @Service
 public class MatchAssignmentService {

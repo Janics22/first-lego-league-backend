@@ -5,7 +5,7 @@ Feature: Manage Edition
 
   Background:
     Given There is a registered user with username "user" and password "password" and email "user@sample.app"
-    And I login as "user" with password "password"
+    And I login as "admin" with password "password"
 
   Scenario: Create an edition
     When I create a new edition with year 2025, venue "Barcelona" and description "FLL Season 2025"

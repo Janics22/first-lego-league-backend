@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import cat.udl.eps.softarch.fll.domain.Match;
 import cat.udl.eps.softarch.fll.exception.MatchScheduleErrorCode;
 import cat.udl.eps.softarch.fll.exception.MatchScheduleException;
-import cat.udl.eps.softarch.fll.repository.MatchRepository;
+import cat.udl.eps.softarch.fll.repository.match.MatchRepository;
 
 
 @Service

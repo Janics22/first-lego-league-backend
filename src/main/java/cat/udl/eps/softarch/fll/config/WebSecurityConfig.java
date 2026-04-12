@@ -33,6 +33,7 @@ public class WebSecurityConfig {
 				.requestMatchers(HttpMethod.POST, "/users/*").denyAll()
 				.requestMatchers(HttpMethod.POST, "/rounds/*/scores").authenticated()
 				.requestMatchers(HttpMethod.GET, "/rounds/*/scores").authenticated()
+				.requestMatchers(HttpMethod.POST, "/projectRooms").authenticated()
 				.requestMatchers(HttpMethod.POST, "/**").hasRole(UserRoles.ADMIN)
 				.requestMatchers(HttpMethod.PUT, "/**").hasRole(UserRoles.ADMIN)
 				.requestMatchers(HttpMethod.PATCH, "/**").hasRole(UserRoles.ADMIN)

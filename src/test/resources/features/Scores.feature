@@ -48,3 +48,44 @@ Feature: Manage Round Scores
     And I login as "referee" with password "password"
     When I request the scores for round 999999
     Then The response code is 404
+
+  Scenario: Referee updates a score correctly
+    Given There is a registered user with username "referee", password "password", email "referee@test.com" and roles "ROLE_USER,ROLE_REFEREE"
+    And I login as "referee" with password "password"
+    And a round exists with id 1 and a team "TeamA" participates in round 1
+    When I submit 215 points for team "/teams/TeamA" in round 1
+    Then The response code is 201
+    When I update the score to 250 for team "/teams/TeamA" in round 1
+    Then The response code is 200
+
+  Scenario: Unauthenticated update score returns 401
+    Given There is a registered user with username "referee", password "password", email "referee@test.com" and roles "ROLE_USER,ROLE_REFEREE"
+    And I login as "referee" with password "password"
+    And a round exists with id 1 and a team "TeamA" participates in round 1
+    When I submit 215 points for team "/teams/TeamA" in round 1
+    Then The response code is 201
+    And I'm not logged in
+    When I update the score to 250 for team "/teams/TeamA" in round 1
+    Then The response code is 401
+
+  Scenario: Admin deletes a score
+    Given There is a registered user with username "referee", password "password", email "referee@test.com" and roles "ROLE_USER,ROLE_REFEREE"
+    And I login as "referee" with password "password"
+    And a round exists with id 1 and a team "TeamA" participates in round 1
+    When I submit 215 points for team "/teams/TeamA" in round 1
+    Then The response code is 201
+    Given There is a registered user with username "admin", password "password", email "admin@test.com" and roles "ROLE_USER,ROLE_ADMIN"
+    And I login as "admin" with password "password"
+    When I delete the score for team "/teams/TeamA" in round 1
+    Then The response code is 204
+
+  Scenario: Unauthenticated delete score returns 401
+    Given There is a registered user with username "referee", password "password", email "referee@test.com" and roles "ROLE_USER,ROLE_REFEREE"
+    And I login as "referee" with password "password"
+    And a round exists with id 1 and a team "TeamA" participates in round 1
+    When I submit 215 points for team "/teams/TeamA" in round 1
+    Then The response code is 201
+    And I'm not logged in
+    When I delete the score for team "/teams/TeamA" in round 1
+    Then The response code is 401
+

@@ -2,6 +2,8 @@ package cat.udl.eps.softarch.fll.steps;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -11,10 +13,12 @@ import org.springframework.http.MediaType;
 import cat.udl.eps.softarch.fll.domain.Match;
 import cat.udl.eps.softarch.fll.domain.MatchResult;
 import cat.udl.eps.softarch.fll.domain.Round;
+import cat.udl.eps.softarch.fll.domain.Score;
 import cat.udl.eps.softarch.fll.domain.Team;
 import cat.udl.eps.softarch.fll.repository.match.MatchRepository;
 import cat.udl.eps.softarch.fll.repository.match.MatchResultRepository;
 import cat.udl.eps.softarch.fll.repository.match.RoundRepository;
+import cat.udl.eps.softarch.fll.repository.ScoreRepository;
 import cat.udl.eps.softarch.fll.repository.team.TeamRepository;
 import cat.udl.eps.softarch.fll.steps.app.AuthenticationStepDefs;
 import cat.udl.eps.softarch.fll.steps.app.StepDefs;
@@ -29,6 +33,7 @@ public class ScoreStepDefs {
 	private final MatchRepository matchRepository;
 	private final MatchResultRepository matchResultRepository;
 	private final TeamRepository teamRepository;
+	private final ScoreRepository scoreRepository;
 
 	private Long roundId;
 	private String roundScoresUrl;
@@ -43,12 +48,14 @@ public class ScoreStepDefs {
 			RoundRepository roundRepository,
 			MatchRepository matchRepository,
 			MatchResultRepository matchResultRepository,
-			TeamRepository teamRepository) {
+			TeamRepository teamRepository,
+			ScoreRepository scoreRepository) {
 		this.stepDefs = stepDefs;
 		this.roundRepository = roundRepository;
 		this.matchRepository = matchRepository;
 		this.matchResultRepository = matchResultRepository;
 		this.teamRepository = teamRepository;
+		this.scoreRepository = scoreRepository;
 	}
 
 	@Given("The score dependencies exist")
@@ -160,6 +167,50 @@ public class ScoreStepDefs {
 	public void iRequestTheScoresForRound(int roundIdParam) throws Exception {
 		this.roundScoresUrl = "/rounds/" + roundIdParam + "/scores";
 		iRequestTheScoresForTheRound();
+	}
+
+	@When("I update the score to {int} for team {string} in round {int}")
+	public void iUpdateTheScoreToForTeamInRound(int newPoints, String teamReference, int roundIdParam) throws Exception {
+		String teamUri = resolveTeamUri(teamReference);
+		String teamId = extractTeamId(teamUri);
+
+		Long scoreId = scoreRepository.findByRound_Id((long) roundIdParam).stream()
+				.filter(s -> s.getTeam().getId().equals(teamId))
+				.map(Score::getId)
+				.findFirst()
+				.orElseThrow(() -> new RuntimeException("Score not found for team " + teamId + " in round " + roundIdParam));
+
+		String url = "/rounds/" + roundIdParam + "/scores/" + scoreId;
+
+		JSONObject payload = new JSONObject();
+		payload.put("points", newPoints);
+
+		stepDefs.result = stepDefs.mockMvc.perform(
+				patch(url)
+						.contentType(MediaType.APPLICATION_JSON)
+						.content(payload.toString())
+						.characterEncoding(StandardCharsets.UTF_8)
+						.accept(MediaType.APPLICATION_JSON)
+						.with(AuthenticationStepDefs.authenticate()));
+	}
+
+	@When("I delete the score for team {string} in round {int}")
+	public void iDeleteTheScoreForTeamInRound(String teamReference, int roundIdParam) throws Exception {
+		String teamUri = resolveTeamUri(teamReference);
+		String teamId = extractTeamId(teamUri);
+
+		Long scoreId = scoreRepository.findByRound_Id((long) roundIdParam).stream()
+				.filter(s -> s.getTeam().getId().equals(teamId))
+				.map(Score::getId)
+				.findFirst()
+				.orElseThrow(() -> new RuntimeException("Score not found for team " + teamId + " in round " + roundIdParam));
+
+		String url = "/rounds/" + roundIdParam + "/scores/" + scoreId;
+
+		stepDefs.result = stepDefs.mockMvc.perform(
+				delete(url)
+						.accept(MediaType.APPLICATION_JSON)
+						.with(AuthenticationStepDefs.authenticate()));
 	}
 
 	private Round createRound() {

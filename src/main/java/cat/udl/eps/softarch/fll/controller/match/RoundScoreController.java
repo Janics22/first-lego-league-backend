@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -104,6 +106,54 @@ public class RoundScoreController {
 		String trimmed = teamUri.trim();
 		int lastSlash = trimmed.lastIndexOf('/');
 		return lastSlash >= 0 ? trimmed.substring(lastSlash + 1) : trimmed;
+	}
+
+	@PatchMapping("/{id}/scores/{scoreId}")
+	@PreAuthorize("hasRole('REFEREE')")
+	public ResponseEntity<?> updateScore(
+		@PathVariable("id") Long roundId,
+		@PathVariable("scoreId") Long scoreId,
+		@RequestBody UpdateScoreRequest body
+	) {
+		Score score = scoreRepository.findById(scoreId).orElse(null);
+		if (score == null) {
+			return ResponseEntity.notFound().build();
+		}
+
+		if (!score.getRound().getId().equals(roundId)) {
+			return ResponseEntity.badRequest().body("Score does not belong to the specified round");
+		}
+
+		if (body.getPoints() != null) {
+			score.setPoints(body.getPoints());
+		}
+
+		Score updated = scoreRepository.save(score);
+		return ResponseEntity.ok(updated);
+	}
+
+	@DeleteMapping("/{id}/scores/{scoreId}")
+	@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity<?> deleteScore(
+		@PathVariable("id") Long roundId,
+		@PathVariable("scoreId") Long scoreId
+	) {
+		Score score = scoreRepository.findById(scoreId).orElse(null);
+		if (score == null) {
+			return ResponseEntity.notFound().build();
+		}
+
+		if (!score.getRound().getId().equals(roundId)) {
+			return ResponseEntity.badRequest().body("Score does not belong to the specified round");
+		}
+
+		scoreRepository.delete(score);
+		return ResponseEntity.noContent().build();
+	}
+
+	@Data
+	public static class UpdateScoreRequest {
+		private Integer points;
 	}
 
 	@Data

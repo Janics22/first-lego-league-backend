@@ -134,12 +134,12 @@ public class ManageScientificProjectStepDefs {
 		String teamName = extractTeamName(teamUri);
 		Long editionId = extractEditionId(editionUri);
 
-		Team team = teamRepository.findByNameWithRegisteredEditions(teamName)
+		Team team = teamRepository.findById(teamName)
 				.orElseThrow(() -> new IllegalStateException("Missing team in test setup: " + teamName));
 		Edition edition = editionRepository.findById(editionId)
 				.orElseThrow(() -> new IllegalStateException("Missing edition in test setup: " + editionId));
 
-		team.registerEdition(edition);
+		team.setEdition(edition);
 		teamRepository.save(team);
 	}
 

@@ -1,7 +1,6 @@
 package cat.udl.eps.softarch.fll.domain.volunteer;
 
 import cat.udl.eps.softarch.fll.domain.CompetitionTable;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
@@ -19,7 +18,6 @@ public class Referee extends Volunteer {
 	private boolean expert;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "supervises_table_id")
-	@JsonBackReference("table-referees")
 	private CompetitionTable supervisesTable;
 
 	public static Referee create(String name, String emailAddress, String phoneNumber) {

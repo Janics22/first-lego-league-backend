@@ -1,7 +1,7 @@
 package cat.udl.eps.softarch.fll.domain;
 
 import cat.udl.eps.softarch.fll.domain.volunteer.Referee;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -22,12 +22,12 @@ public class CompetitionTable extends UriEntity<String> {
 	private String id;
 	@Getter
 	@OneToMany(mappedBy = "competitionTable", cascade = CascadeType.ALL)
-	@JsonManagedReference("table-matches")
+	@JsonIgnore
 	private List<Match> matches = new ArrayList<>();
 	@Getter
 	@OneToMany(mappedBy = "supervisesTable")
 	@Size(max = 3, message = "A table can have a maximum of 3 referees")
-	@JsonManagedReference("table-referees")
+	@JsonIgnore
 	private List<Referee> referees = new ArrayList<>();
 
 	public static CompetitionTable create(String id) {

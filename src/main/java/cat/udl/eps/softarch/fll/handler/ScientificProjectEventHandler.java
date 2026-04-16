@@ -4,6 +4,7 @@ import org.springframework.data.rest.core.annotation.HandleBeforeCreate;
 import org.springframework.data.rest.core.annotation.HandleBeforeSave;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
 import org.springframework.stereotype.Component;
+import java.util.Objects;
 import cat.udl.eps.softarch.fll.domain.ScientificProject;
 import cat.udl.eps.softarch.fll.exception.DomainValidationException;
 import cat.udl.eps.softarch.fll.repository.edition.EditionRepository;
@@ -67,7 +68,12 @@ public class ScientificProjectEventHandler {
 			return;
 		}
 
-		if (!teamRepository.existsByIdAndRegisteredEditionsId(project.getTeam().getId(), project.getEdition().getId())) {
+		boolean registered = teamRepository.findById(project.getTeam().getId())
+				.map(team -> team.getEdition() != null
+						&& Objects.equals(team.getEdition().getId(), project.getEdition().getId()))
+				.orElse(false);
+
+		if (!registered) {
 			throw new DomainValidationException("EDITION_TEAM_MISMATCH",
 					"The referenced team is not registered in the referenced edition");
 		}

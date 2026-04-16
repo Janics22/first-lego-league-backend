@@ -37,9 +37,15 @@ public class EditionTeamRegistrationService {
 			throw new EditionTeamRegistrationException(exception.getError(), exception.getMessage(), exception);
 		}
 
-		Team team = teamRepository.findById(teamId)
+		Team team = teamRepository.findByNameForUpdate(teamId)
 				.orElseThrow(() -> new EditionTeamRegistrationException(
 						"TEAM_NOT_FOUND", "Team with id " + teamId + " not found"));
+
+		if (team.getEdition() != null && !team.getEdition().getId().equals(editionId)) {
+			throw new EditionTeamRegistrationException(
+					"TEAM_ALREADY_IN_ANOTHER_EDITION",
+					"Team " + teamId + " is already registered in another edition");
+		}
 
 		if (edition.containsTeam(team)) {
 			throw new EditionTeamRegistrationException(
@@ -52,7 +58,9 @@ public class EditionTeamRegistrationService {
 					"Edition " + editionId + " has reached the maximum of " + Edition.MAX_TEAMS + " teams");
 		}
 
+		team.setEdition(edition);
+		teamRepository.save(team);
 		edition.getTeams().add(team);
-		return editionRepository.save(edition);
+		return edition;
 	}
 }

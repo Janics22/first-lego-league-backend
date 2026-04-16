@@ -23,7 +23,7 @@ public class EditionTeamRegistrationExceptionHandler {
 	private HttpStatus resolveStatus(String error) {
 		return switch (error) {
 			case "EDITION_NOT_FOUND", "TEAM_NOT_FOUND" -> HttpStatus.NOT_FOUND;
-			case "MAX_TEAMS_REACHED", "TEAM_ALREADY_REGISTERED" -> HttpStatus.CONFLICT;
+			case "MAX_TEAMS_REACHED", "TEAM_ALREADY_REGISTERED", "TEAM_ALREADY_IN_ANOTHER_EDITION" -> HttpStatus.CONFLICT;
 			case "EDITION_OPERATION_NOT_ALLOWED" -> HttpStatus.UNPROCESSABLE_CONTENT;
 			default -> HttpStatus.BAD_REQUEST;
 		};

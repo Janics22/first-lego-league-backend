@@ -7,17 +7,15 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -46,14 +44,10 @@ public class Edition extends UriEntity<Long> {
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	private EditionState state = EditionState.DRAFT;
 
-	@ManyToMany
-	@JoinTable(
-		name = "edition_teams",
-		joinColumns = @JoinColumn(name = "edition_id"),
-		inverseJoinColumns = @JoinColumn(name = "team_name"))
+	@OneToMany(mappedBy = "edition")
 	@ToString.Exclude
 	@EqualsAndHashCode.Exclude
-	private Set<Team> teams = new HashSet<>();
+	private List<Team> teams = new ArrayList<>();
 
 	protected Edition() {
 	}

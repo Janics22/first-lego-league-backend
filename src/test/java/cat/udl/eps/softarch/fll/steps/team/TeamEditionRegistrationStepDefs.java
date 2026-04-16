@@ -62,8 +62,8 @@ public class TeamEditionRegistrationStepDefs {
 	public void teamIsAlreadyRegistered(String teamName) {
 		Edition edition = editionRepository.findById(currentEditionId()).orElseThrow();
 		Team team = teamRepository.findById(teamName).orElseThrow();
-		edition.getTeams().add(team);
-		editionRepository.save(edition);
+		team.setEdition(edition);
+		teamRepository.save(team);
 	}
 
 	@Given("The current edition already has {int} teams registered")
@@ -76,9 +76,9 @@ public class TeamEditionRegistrationStepDefs {
 				Team created = Team.create(teamName, "Igualada", 2000, "Challenge");
 				return teamRepository.save(created);
 			});
-			edition.getTeams().add(team);
+			team.setEdition(edition);
+			teamRepository.save(team);
 		});
-		editionRepository.save(edition);
 	}
 
 	@Given("The current edition is in state {string}")

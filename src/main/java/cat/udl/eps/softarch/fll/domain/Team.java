@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import cat.udl.eps.softarch.fll.domain.volunteer.Floater;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -14,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
@@ -62,14 +62,9 @@ public class Team extends UriEntity<String> {
 	@Size(max = 10, message = "A team cannot have more than 10 members")
 	@ToString.Exclude
 	private List<TeamMember> members = new ArrayList<>();
-	@ManyToMany
-	@JoinTable(
-		name = "edition_teams",
-		joinColumns = @JoinColumn(name = "team_name"),
-		inverseJoinColumns = @JoinColumn(name = "edition_id"))
-	@JsonIdentityReference(alwaysAsId = true)
-	@ToString.Exclude
-	private Set<Edition> registeredEditions = new HashSet<>();
+	@ManyToOne
+	@JoinColumn(name = "edition_id")
+	private Edition edition;
 	@ManyToMany
 	@JoinTable(
 		name = "team_coach",
@@ -139,12 +134,6 @@ public class Team extends UriEntity<String> {
 		}
 		floaters.remove(floater);
 		floater.getAssistedTeams().remove(this);
-	}
-
-	public void registerEdition(Edition edition) {
-		if (edition != null) {
-			registeredEditions.add(edition);
-		}
 	}
 
 	public void addCoach(Coach coach) {

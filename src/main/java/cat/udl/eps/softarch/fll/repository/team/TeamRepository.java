@@ -2,6 +2,8 @@ package cat.udl.eps.softarch.fll.repository.team;
 
 import java.util.List;
 import java.util.Optional;
+import jakarta.persistence.LockModeType;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -26,9 +28,8 @@ public interface TeamRepository extends CrudRepository<Team, String>, PagingAndS
 	Optional<Team> findByName(@Param("name") String name);
 
 	@RestResource(exported = false)
-	boolean existsByIdAndRegisteredEditionsId(String teamName, Long editionId);
+	@Lock(LockModeType.PESSIMISTIC_WRITE)
+	@Query("select t from Team t where t.name = :name")
+	Optional<Team> findByNameForUpdate(@Param("name") String name);
 
-	@RestResource(exported = false)
-	@Query("select distinct t from Team t left join fetch t.registeredEditions where t.name = :name")
-	Optional<Team> findByNameWithRegisteredEditions(@Param("name") String name);
 }

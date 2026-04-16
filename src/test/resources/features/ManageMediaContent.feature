@@ -29,3 +29,25 @@ Feature: Manage MediaContent
     When I delete the media content with url "old101"
     Then The response code is 200
     And The media content with url "old101" has been deleted
+
+  Scenario: Create media content unauthenticated returns 401
+    Given I'm not logged in
+    When I create a new media content with url "photo-unauth" and type "image"
+    Then The response code is 401
+
+  Scenario: Create media content as regular user returns 403
+    Given I login as "user" with password "password"
+    When I create a new media content with url "photo-user" and type "image"
+    Then The response code is 403
+
+  Scenario: Delete media content unauthenticated returns 401
+    Given There is a media content with url "del-unauth" and type "image"
+    And I'm not logged in
+    When I delete the media content with url "del-unauth"
+    Then The response code is 401
+
+  Scenario: Delete media content as regular user returns 403
+    Given There is a media content with url "del-user" and type "image"
+    And I login as "user" with password "password"
+    When I delete the media content with url "del-user"
+    Then The response code is 403

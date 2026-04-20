@@ -83,8 +83,8 @@ public class ManageRefereeStepDefs {
 		stepDefs.result.andExpect(status().is(expectedStatus));
 	}
 
-	@Then("the response should contain name {string} and emailAddress {string} and phoneNumber {string} and expert {string}")
-	public void the_response_should_contain(String name, String email, String phone, String expertStr) throws Exception {
+	@Then("the referee response should contain name {string} and emailAddress {string} and phoneNumber {string} and expert {string}")
+	public void the_referee_response_should_contain(String name, String email, String phone, String expertStr) throws Exception {
 		boolean isExpert = Boolean.parseBoolean(expertStr);
 
 		stepDefs.result.andExpect(jsonPath("$.name").value(name))

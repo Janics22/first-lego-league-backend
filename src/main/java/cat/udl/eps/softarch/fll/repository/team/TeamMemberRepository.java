@@ -6,6 +6,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import cat.udl.eps.softarch.fll.domain.TeamMember;
+import cat.udl.eps.softarch.fll.domain.Team;
 
 @RepositoryRestResource(path = "teamMembers")
 public interface TeamMemberRepository extends CrudRepository<TeamMember, Long>, PagingAndSortingRepository<TeamMember, Long> {
@@ -13,5 +14,7 @@ public interface TeamMemberRepository extends CrudRepository<TeamMember, Long>, 
 	List<TeamMember> findByName(@Param("name") String name);
 	
 	List<TeamMember> findByRole(@Param("role") String role);
+
+	long countByTeam(Team team);
 }
 

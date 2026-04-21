@@ -180,6 +180,13 @@ public class TeamMemberStepDefs {
 		stepDefs.result.andExpect(jsonPath("$._embedded.teamMembers", hasSize(0)));
 	}
 
+	@Given("{string} already has 10 team members")
+	public void teamAlreadyHas10Members(String teamName) throws Exception {
+		for (int i = 1; i <= 10; i++) {
+			iCreateATeamMemberForTeam("Filler" + i, "2010-01-01", "Role", teamName);
+		}
+}
+
 	private JSONObject buildTeamMemberPayload(String name, String birthDate, String role, String teamName) throws Exception {
 		JSONObject payload = new JSONObject();
 		payload.put("uri", "/teamMembers/" + name.replace(" ", "-").toLowerCase());

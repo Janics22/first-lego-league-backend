@@ -72,3 +72,10 @@ Feature: TeamMember REST CRUD
         Then The response code is 204
         When I retrieve the deleted team member by id
         Then The response code is 404
+		
+	Scenario: Failing to add an 11th member to a team at capacity
+		Given a team with name "CapacityTeam" exists for team member management
+		And "CapacityTeam" already has 10 team members
+		When I create a team member with name "ExtraMember" birth date "2010-11-11" and role "Extra" for team "CapacityTeam"
+		Then The response code is 400
+		And The error message is "A team cannot have more than 10 members"

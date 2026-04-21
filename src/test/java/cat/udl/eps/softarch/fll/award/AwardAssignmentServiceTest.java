@@ -3,6 +3,7 @@ package cat.udl.eps.softarch.fll.award;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -50,7 +51,7 @@ class AwardAssignmentServiceTest {
 		award = Award.create("Best Robot", edition);
 		award.setId(21L);
 
-		when(awardRepository.saveAndFlush(any())).thenAnswer(invocation -> invocation.getArgument(0));
+		lenient().when(awardRepository.saveAndFlush(any())).thenAnswer(invocation -> invocation.getArgument(0));
 	}
 
 	@Test

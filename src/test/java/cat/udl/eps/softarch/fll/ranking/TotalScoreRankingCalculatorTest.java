@@ -93,10 +93,8 @@ class TotalScoreRankingCalculatorTest {
 
 	@Test
 	void calculateShouldAggregateMultipleResultsAcrossTeams() {
-		// Alpha: 50 + 30 = 80
 		MatchResult rAlpha1 = MatchResult.create(50, match, teamAlpha);
 		MatchResult rAlpha2 = MatchResult.create(30, match, teamAlpha);
-		// Bravo: 90 + 10 = 100
 		MatchResult rBravo1 = MatchResult.create(90, match, teamBravo);
 		MatchResult rBravo2 = MatchResult.create(10, match, teamBravo);
 
@@ -116,7 +114,6 @@ class TotalScoreRankingCalculatorTest {
 
 	@Test
 	void calculateShouldBreakTiesByTeamIdAscending() {
-		// Both teams score 100 — tie should be broken by team ID (alphabetical)
 		MatchResult rAlpha = MatchResult.create(100, match, teamAlpha);
 		MatchResult rBravo = MatchResult.create(100, match, teamBravo);
 

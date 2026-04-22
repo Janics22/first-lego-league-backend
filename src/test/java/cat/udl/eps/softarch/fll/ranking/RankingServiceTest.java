@@ -143,7 +143,6 @@ class RankingServiceTest {
 
 	@Test
 	void recalculateRankingShouldWorkWithRealTotalScoreCalculator() {
-		// Integration‑style test: real calculator, mocked repositories
 		TotalScoreRankingCalculator realCalculator = new TotalScoreRankingCalculator();
 		RankingService serviceWithRealCalc = new RankingService(
 			matchResultRepository, rankingRepository, realCalculator);
@@ -162,12 +161,10 @@ class RankingServiceTest {
 		List<Ranking> saved = rankingCaptor.getValue();
 		assertEquals(2, saved.size());
 
-		// Alpha: 40 + 60 = 100 → position 1
 		assertEquals("Alpha", saved.get(0).getTeam().getId());
 		assertEquals(100, saved.get(0).getTotalScore());
 		assertEquals(1, saved.get(0).getPosition());
 
-		// Bravo: 90 → position 2
 		assertEquals("Bravo", saved.get(1).getTeam().getId());
 		assertEquals(90, saved.get(1).getTotalScore());
 		assertEquals(2, saved.get(1).getPosition());

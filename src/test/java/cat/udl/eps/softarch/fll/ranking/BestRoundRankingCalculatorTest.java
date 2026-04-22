@@ -93,7 +93,6 @@ class BestRoundRankingCalculatorTest {
 
 	@Test
 	void calculateShouldPickMaxScoreAcrossMultipleResultsPerTeam() {
-		// Alpha best: 80, Bravo best: 95
 		MatchResult rAlpha1 = MatchResult.create(30, match, teamAlpha);
 		MatchResult rAlpha2 = MatchResult.create(80, match, teamAlpha);
 		MatchResult rBravo1 = MatchResult.create(95, match, teamBravo);
@@ -131,8 +130,6 @@ class BestRoundRankingCalculatorTest {
 
 	@Test
 	void calculateShouldUseMaxNotSumForMultipleResults() {
-		// Alpha: results 20, 30 → best‑round = 30 (NOT sum 50)
-		// Bravo: single result 40
 		MatchResult rAlpha1 = MatchResult.create(20, match, teamAlpha);
 		MatchResult rAlpha2 = MatchResult.create(30, match, teamAlpha);
 		MatchResult rBravo = MatchResult.create(40, match, teamBravo);

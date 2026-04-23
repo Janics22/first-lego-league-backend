@@ -20,7 +20,7 @@ public class EditionSearchController {
 	public ResponseEntity<Object> searchByVenueName(
 		@RequestParam(name = "venueName") String venueName
 	) {
-		 List<Edition> editions = editionRepository.findByVenueNameContainingIgnoreCase(venueName);
+		List<Edition> editions = editionRepository.findByVenueNameContainingIgnoreCase(venueName);
 		return ResponseEntity.ok(Map.of("_embedded", Map.of("editions", editions)));
 	}
 }

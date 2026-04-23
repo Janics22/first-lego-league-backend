@@ -31,4 +31,8 @@ public interface EditionRepository extends CrudRepository<Edition, Long>, Paging
 			description = "Returns a list of Editions for the specified venue.")
 	List<Edition> findByVenueName(@Param("venueName") String venueName);
 
+	@Operation(summary = "Search editions by partial venue name",
+		description = "Returns a list of Editions whose venue name contains the given string (case-insensitive).")
+	List<Edition> findByVenueNameContainingIgnoreCase(@Param("venueName") String venueName);
+
 }

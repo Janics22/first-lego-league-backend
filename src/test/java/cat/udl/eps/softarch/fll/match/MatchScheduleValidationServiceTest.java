@@ -87,6 +87,19 @@ class MatchScheduleValidationServiceTest {
 		assertEquals(MatchScheduleErrorCode.TABLE_TIME_OVERLAP, ex.getErrorCode());
 	}
 
+	@Test
+	void adjacentMatchOnSameTable_doesNotThrowException() {
+		Match match = createMatch("11:00", "12:00");
+		CompetitionTable table = new CompetitionTable();
+		table.setId("Table-1");
+		match.setCompetitionTable(table);
+
+		when(matchRepository.findOverlappingMatchesByTable(any(), any(), any(), any()))
+				.thenReturn(Collections.emptyList());
+
+		assertDoesNotThrow(() -> validationService.validateForCreateOrUpdate(match));
+	}
+
 	private Match createMatch(String start, String end) {
 		Match match = new Match();
 		match.setStartTime(LocalTime.parse(start));
